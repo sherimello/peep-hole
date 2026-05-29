@@ -1,160 +1,201 @@
-# PeepHole - Advanced Windows Search Application
+<p align="center">
+  <img src="assets/images/logo.png" alt="PeepHole Logo" width="120" />
+</p>
 
-**PeepHole** is a high-performance, global hotkey-triggered search application for Windows that instantly searches across files, folders, installed applications, with smart web search suggestions.
+<h1 align="center">PeepHole</h1>
 
-## Features
+<p align="center">
+  A fast, keyboard-driven app launcher and file search for Windows — inspired by Spotlight and Raycast.
+</p>
 
-✨ **Global Hotkey Trigger**
-- Press `Alt+S` from anywhere to instantly open the search interface
-- Window appears centered on screen
-
-🔍 **Comprehensive Search**
-- **Files**: Deep search across all drives (up to 4 levels)
-- **Folders**: Quick access to directory locations
-- **Installed Apps**: Searches Program Files and common app locations
-- **Web Search**: Integrated Google search suggestions
-
-⚡ **Smart Features**
-- Real-time search results (up to 20 results)
-- Keyboard navigation (↑↓ arrows)
-- Press Enter to open selected result
-- Press ESC to close/clear
-- Clean, modern dark theme UI
-- Frameless elegant design
-
-🎯 **Quick Actions**
-- Click file to open it
-- Click folder to open in File Explorer
-- Click app to launch it
-- Click web search to perform Google search
-
-## Installation
-
-### Standalone Executable
-Simply run `peephole.exe` from the build folder:
-```
-build\windows\x64\runner\Release\peephole.exe
-```
-
-Or create a shortcut to launch it automatically on startup.
-
-### Startup Integration
-To launch PeepHole automatically on Windows startup:
-1. Right-click `peephole.exe` and select "Create shortcut"
-2. Move the shortcut to `C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup`
-
-## Usage
-
-### Basic Usage
-1. Press `Alt+S` anywhere on your screen
-2. Type your search query
-3. Use arrow keys to navigate results
-4. Press Enter to open the selected result
-5. Press ESC to close
-
-### Search Tips
-- **Fast file search**: Type filename or partial name
-- **App search**: Type app name to launch quickly
-- **Folder search**: Type folder name to navigate
-- **Web search**: Any search triggers Google web search option
-
-## Technical Details
-
-### Architecture
-- **Framework**: Flutter (Dart)
-- **Target**: Windows (x64)
-- **Key Libraries**:
-  - `window_manager`: Frameless window management
-  - `hotkey_manager`: Global hotkey registration
-  - `path_provider`: Path utilities
-  - `url_launcher`: Web browser integration
-
-### Project Structure
-```
-lib/
-├── main.dart                    # App entry point
-├── screens/
-│   └── search_screen.dart      # Main search UI
-├── services/
-│   ├── hotkey_service.dart     # Alt+S hotkey handling
-│   └── search_service.dart     # File/folder/app search logic
-├── models/
-│   └── search_result.dart      # Search result data model
-└── widgets/
-    └── search_result_widget.dart # Result item UI
-```
-
-## Search Result Indicators
-
-- 🔵 **Blue Icon**: File
-- 🟠 **Orange Icon**: Folder
-- 🟢 **Green Icon**: Application
-- 🔷 **Light Blue Icon**: Web Search
-
-## System Requirements
-
-- Windows 10 or later
-- 64-bit processor
-- ~50MB disk space for application
-
-## Troubleshooting
-
-### Hotkey not working
-- Ensure PeepHole is running in background
-- Some apps may intercept hotkeys - try with different application active
-- Administrator privileges may be required for system-wide hotkey
-
-### Search is slow
-- First search indexes system - subsequent searches are faster
-- Avoid searching immediately after boot
-- System drives with many files take longer to index
-
-### Can't open certain files
-- Ensure file associations are set up in Windows
-- Some system files may be restricted
-
-## Performance Notes
-
-- Search results limited to 20 items (most relevant shown)
-- Search depth limited to 4 directory levels to ensure responsiveness
-- System folders and common cache directories are skipped
-- First search may take 1-3 seconds depending on system
-
-## Building from Source
-
-If you want to build from source:
-
-```bash
-# Navigate to project directory
-cd c:\dev\peep hole
-
-# Get dependencies
-flutter pub get
-
-# Build for Windows
-flutter build windows --release
-
-# Executable will be at:
-# build\windows\x64\runner\Release\peephole.exe
-```
-
-## Development Mode
-
-To run in development mode with hot reload:
-```bash
-flutter run -d windows
-```
-
-## Keyboard Shortcuts
-
-| Shortcut | Action |
-|----------|--------|
-| `Alt+S` | Show/focus search window |
-| `↑` / `↓` | Navigate results |
-| `Enter` | Open selected result |
-| `ESC` | Close search window / Clear search |
+<p align="center">
+  <img src="https://img.shields.io/badge/platform-Windows-blue?logo=windows&logoColor=white" />
+  <img src="https://img.shields.io/badge/built%20with-Flutter-54C5F8?logo=flutter&logoColor=white" />
+  <img src="https://img.shields.io/badge/version-1.0.0-brightgreen" />
+  <img src="https://img.shields.io/badge/license-MIT-orange" />
+  <img src="https://img.shields.io/badge/PRs-welcome-blueviolet" />
+</p>
 
 ---
 
-**Enjoy blazing-fast searching!** ⚡
-# peep-hole
+## What is PeepHole?
+
+Press **Alt+X** anywhere on your desktop. PeepHole pops up instantly — type to search your installed apps, files, folders, or jump straight to a Google search. Press **Enter** to open, **Esc** to dismiss. It then disappears and stays out of your way.
+
+No taskbar entry. No bloat. Just a fast, dark launcher that learns which results you open most and surfaces them first.
+
+---
+
+## Features
+
+- **Global hotkey** — `Alt+X` summons the launcher from anywhere, even over fullscreen apps
+- **Instant app search** — searches both user and system Start Menu shortcuts, shows real app icons
+- **Smart file & folder search** — scans your home directories and builds a background in-memory index so results are near-instant after startup
+- **Web fallback** — "Search on Google" tile is always pinned at the top for quick web lookups
+- **Click-frequency ranking** — results you open most float to the top automatically over time
+- **Keyboard navigation** — `↑` / `↓` to move, `Enter` to open, `Esc` to close
+- **Drag to reposition** — grab the top bar to move the window anywhere on screen
+- **Runs at startup** — optional, configured during install
+- **Dark UI** — frameless, always-on-top, easy on the eyes
+
+---
+
+## Installation
+
+### Option A — Installer (recommended)
+
+Download the latest `PeepHole_Setup_x.x.x.exe` from [**Releases**](../../releases) and run it.
+
+The installer will:
+- Copy all files to `%ProgramFiles%\PeepHole`
+- Optionally register a startup entry so it launches with Windows
+- Create a Start Menu shortcut
+- Include a clean uninstaller (`Control Panel → Apps → PeepHole`)
+
+### Option B — Build from source
+
+See [**Building Locally**](#building-locally) below.
+
+---
+
+## Usage
+
+| Action | Key |
+|---|---|
+| Open PeepHole | `Alt+X` |
+| Navigate results | `↑` / `↓` |
+| Open selected result | `Enter` |
+| Dismiss / clear | `Esc` |
+| Move window | Drag the top bar |
+
+**Result order:**
+1. Previously opened results (most-clicked first, any type)
+2. Installed apps
+3. Folders
+4. Files
+5. "Search on Google" — always pinned at position #1
+
+---
+
+## Screenshots
+
+> _Add screenshots or a demo GIF here._
+
+---
+
+## Tech Stack
+
+| Package | Purpose |
+|---|---|
+| [Flutter](https://flutter.dev) | UI framework (Windows desktop) |
+| [window_manager](https://pub.dev/packages/window_manager) | Frameless, always-on-top window control |
+| [hotkey_manager](https://pub.dev/packages/hotkey_manager) | System-wide `Alt+X` hotkey |
+| [shared_preferences](https://pub.dev/packages/shared_preferences) | Persisting per-result open counts |
+| [url_launcher](https://pub.dev/packages/url_launcher) | Opening web search results |
+| Dart `Isolate` | Background file indexing without blocking the UI |
+| [Inno Setup 6](https://jrsoftware.org/isinfo.php) | Windows installer generation |
+
+---
+
+## Building Locally
+
+**Requirements**
+
+- [Flutter SDK](https://docs.flutter.dev/get-started/install/windows) ≥ 3.11 with Windows desktop support enabled
+- Windows 10 or later (64-bit)
+- Visual Studio 2022 with the **Desktop development with C++** workload
+
+**Steps**
+
+```powershell
+# 1. Clone
+git clone https://github.com/sherimello/peep-hole
+cd peephole
+
+# 2. Install dependencies
+flutter pub get
+
+# 3. Run in debug mode
+flutter run -d windows
+
+# 4. Build a release binary
+flutter build windows --release
+# Output: build\windows\x64\runner\Release\peephole.exe
+```
+
+**Building the installer** (requires [Inno Setup 6](https://jrsoftware.org/isinfo.php))
+
+```powershell
+flutter build windows --release
+& "$env:LOCALAPPDATA\Programs\Inno Setup 6\ISCC.exe" "peep_hole_setup.iss"
+# Output: installer\PeepHole_Setup_1.0.0.exe
+```
+
+---
+
+## Project Structure
+
+```
+lib/
+├── main.dart                        # Entry point — window setup, hotkey init
+├── screens/
+│   └── search_screen.dart           # Main UI: search bar + results list
+├── services/
+│   ├── search_service.dart          # Search orchestration, sorting, live scan
+│   ├── index_service.dart           # Background in-memory file index (Isolate)
+│   ├── hotkey_service.dart          # Alt+X global hotkey registration
+│   ├── icon_service.dart            # App icon extraction from .lnk shortcuts
+│   └── click_tracking_service.dart  # Persisted open-count per result path
+├── widgets/
+│   └── search_result_widget.dart    # Result row UI with real app icons
+└── models/
+    └── search_result.dart           # SearchResult model + SearchResultType enum
+
+assets/
+└── images/
+    └── logo.png                     # App logo
+
+windows/
+└── runner/resources/app_icon.ico    # Windows icon (generated from logo.png)
+
+peep_hole_setup.iss                  # Inno Setup installer script
+```
+
+---
+
+## How the Search Works
+
+1. **Apps** — scanned from `%ProgramData%` and `%APPDATA%` Start Menu folders at startup. Always fast.
+2. **Files & folders** — on first search, a live scan of your home directories runs (Desktop, Documents, Downloads, and common dev folders). In parallel, a background `Isolate` builds a full in-memory index. Once ready (~5–30 seconds after launch), all subsequent searches query the index instantly.
+3. **Ranking** — results are sorted by open count (descending), then by type: apps → folders → files. The web tile is always pinned at the top regardless of rank.
+
+---
+
+## Contributing
+
+Contributions are welcome — bug reports, feature requests, and pull requests all appreciated.
+
+**To contribute:**
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feat/your-feature`
+3. Make your changes and test on Windows
+4. Open a Pull Request with a clear description of what changed and why
+
+**Ideas for contributors:**
+- System tray icon so PeepHole is always visible
+- Customisable hotkey via a settings page
+- Calculator and unit conversion results
+- Fuzzy matching instead of plain substring search
+- macOS / Linux port (the underlying packages already support both)
+- Plugin system for custom result providers
+
+Please keep PRs focused — one feature or fix per PR makes review much easier.
+
+---
+
+## License
+
+[MIT](LICENSE) — free to use, modify, and distribute.
+
+If you find PeepHole useful, a ⭐ on the repo goes a long way.
